@@ -10,4 +10,6 @@ pluginManagement {
 }
 rootProject.name='quarkusmm'
 include 'web'
+include 'domain'
+include 'port'
 

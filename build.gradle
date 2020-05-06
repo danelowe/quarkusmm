@@ -5,23 +5,16 @@ plugins {
     id("org.galaxx.gradle.jandex") version "1.0.2"
 }
 
-repositories {
-     mavenLocal()
-     mavenCentral()
-}
 
 dependencies {
+    implementation(project(":port"))
+    implementation(project(":domain"))
     implementation project(path: ':web', configuration: 'default')
     implementation 'io.quarkus:quarkus-kotlin'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:kotlin-extensions'
 }
-
-group 'com.example'
-version '1.0.0-SNAPSHOT'
 
 quarkus {
     setOutputDirectory("$projectDir/build/classes/kotlin/main")
@@ -37,19 +30,39 @@ allOpen {
     annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+allprojects {
+    group 'com.example'
+    version '1.0.0-SNAPSHOT'
+
+    apply {
+        plugin 'org.jetbrains.kotlin.jvm'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+        kotlinOptions.javaParameters = true
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    }
+    test {
+        systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    }
+
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
-    kotlinOptions.javaParameters = true
-}
-
-compileTestKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11
-}
-test {
-    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
-}
