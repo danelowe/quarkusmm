@@ -1,5 +1,6 @@
 package com.example.quarkusmm
 
+//import com.example.quarkusmm.samemodule.port.CustomerService
 import com.example.quarkusmm.port.CustomerService
 import javax.inject.Inject
 import javax.ws.rs.GET
