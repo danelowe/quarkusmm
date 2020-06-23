@@ -6,13 +6,18 @@ plugins {
 group = "com.example"
 version = "1.0.0-SNAPSHOT"
 
+val quarkusPlatformVersion: String by project
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation(project(":port"))
+    implementation(project(":domain"))
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.quarkus:quarkus-resteasy:1.4.2.Final")
+    implementation("io.quarkus:quarkus-kotlin:$quarkusPlatformVersion")
+    implementation("io.quarkus:quarkus-resteasy:$quarkusPlatformVersion")
 }
 
 tasks {
