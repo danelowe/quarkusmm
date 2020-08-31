@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 plugins {
     // outer scope not available in plugins block,
     // so kotlinVersion cannot be shared between plugins blocks in different projects
-    val kotlinVersion = "1.3.72"
+    val kotlinVersion = "1.4.0"
     id("io.quarkus")
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.allopen") version kotlinVersion
